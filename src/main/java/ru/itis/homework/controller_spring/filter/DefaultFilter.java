@@ -1,0 +1,25 @@
+package ru.itis.homework.controller_spring.filter;
+
+import javax.servlet.*;
+import javax.servlet.annotation.WebFilter;
+import javax.servlet.http.HttpServletRequest;
+import java.io.IOException;
+
+@WebFilter("/*")
+public class DefaultFilter implements Filter {
+
+    @Override
+    public void init(FilterConfig filterConfig) {}
+
+    @Override
+    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
+        HttpServletRequest req = (HttpServletRequest) request;
+        System.out.println("Starting a transaction for req : " + req.getRequestURI());
+        chain.doFilter(request, response);
+        System.out.println("Committing a transaction for req : " +
+                req.getRequestURI());
+    }
+
+    @Override
+    public void destroy() {}
+}
